@@ -41,5 +41,7 @@ jobs:
         npm run build
 
     # 🐳 Docker
-    - name: Build Docker images
-      run: docker-compose build
+    - name: Build backend image
+      run: docker build -t backend ./backend/BackEndApi/BackEndApi
+    - name: Build frontend image 
+      run: docker build -t frontend ./frontend/mi-app
