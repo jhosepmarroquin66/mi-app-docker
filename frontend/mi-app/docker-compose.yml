@@ -1,0 +1,25 @@
+version: '3.9'
+
+services:
+  frontend:
+    build: ./mi-app
+    ports:
+      - "8080:80"
+
+  backend:
+    image: node:20
+    working_dir: /app
+    volumes:
+      - ./backend:/app
+    command: npm start
+    ports:
+      - "3000:3000"
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: mi_db
+    ports:
+      - "5432:5432"

@@ -1,0 +1,45 @@
+name: Docker CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Clonar repo
+      uses: actions/checkout@v3
+
+    # 🧠 Backend
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: '8.0.x'
+
+    - name: Restore backend
+      run: dotnet restore ./backend/BackEndApi/BackEndApi.csproj
+
+    - name: Build backend
+      run: dotnet build ./backend/BackEndApi/BackEndApi.csproj --no-restore
+
+    # ⚛️ Frontend
+    - name: Setup Node
+      uses: actions/setup-node@v3
+      with:
+        node-version: '20'
+
+    - name: Install frontend
+      run: |
+        cd frontend/mi-app
+        npm install
+
+    - name: Build frontend
+      run: |
+        cd frontend/mi-app
+        npm run build
+
+    # 🐳 Docker
+    - name: Build Docker images
+      run: docker-compose build
