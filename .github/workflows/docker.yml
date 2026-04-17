@@ -19,10 +19,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore backend
-      run: dotnet restore ./backend/BackEndApi/BackEndApi.csproj
+      run: dotnet restore backend/BackEndApi/BackEndApi/BackEndApi.csproj
 
     - name: Build backend
-      run: dotnet build ./backend/BackEndApi/BackEndApi.csproj --no-restore
+      run: dotnet build backend/BackEndApi/BackEndApi/BackEndApi.csproj --no-restore
 
     # ⚛️ Frontend
     - name: Setup Node
